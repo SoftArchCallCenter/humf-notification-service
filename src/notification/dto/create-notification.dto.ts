@@ -3,9 +3,22 @@ import { IsDate, IsNotEmpty, IsString } from 'class-validator';
 export class CreateNotificationDto {
     @IsNotEmpty()
     @IsString()
-    id: string;
+    _id: string;
+
+    @IsNotEmpty()
+    @IsString()
     user_id: string;
+
+    @IsNotEmpty()
+    @IsString()
     kitchen_id: string;
+
+    @IsNotEmpty()
+    @IsString()
+    ticket_id: string;
+
+    @IsNotEmpty()
+    @IsString()
     order_id: string;
 
     @IsNotEmpty()

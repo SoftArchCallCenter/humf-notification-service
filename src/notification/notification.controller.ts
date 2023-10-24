@@ -13,35 +13,35 @@ export class NotificationController {
     return this.notificationService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notificationService.findOne(id);
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.notificationService.findByID(id);
+  // }
+
+  // @Get('user/:id')
+  // findByUser(@Param('id') id: string) {
+  //   return this.notificationService.findByUser(id);
+  // }
+
+  // @Get('order/:id')
+  // findByOrder(@Param('id') id: string) {
+  //   return this.notificationService.findByOrder(id);
+  // }
+
+  @Get('status/:order_id')
+  getStatus(@Param('order_id') order_id: string) {
+    return this.notificationService.getStatus(order_id);
   }
 
-  @Get('user/:id')
-  findByUser(@Param('id') id: string) {
-    return this.notificationService.findByUser(id);
-  }
-
-  @Get('order/:id')
-  findByOrder(@Param('id') id: string) {
-    return this.notificationService.findByOrder(id);
-  }
-
-  @Get()
-  getStatus(){
-    return this.notificationService.getStatus();
-  }
-
-  @Delete('clear')
-  remove(@Req() req: any) {
-    return this.notificationService.remove(req);
-  }
+  // @Delete('clear')
+  // remove(@Req() req: any) {
+  //   return this.notificationService.remove(req);
+  // }
   
 
   @EventPattern('create_notification')
-  handleTicketCreated(data: Record<string, unknown>) {
-    console.log('Notification Service: ', data);
+  handleTicketCreated(data: CreateNotificationDto) {
+    return this.notificationService.create(data as CreateNotificationDto);
   }
 
 }

@@ -1,10 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SchemaTypes, Types } from 'mongoose';
+import { AbstractDocument } from '../../databases/abstract.schema';
 
 @Schema()
-export class Notification {
-  @Prop({ type: SchemaTypes.ObjectId })
-  _id: Types.ObjectId;
+export class Notification extends AbstractDocument{
 
   @Prop()
   user_id: string;
@@ -14,6 +12,9 @@ export class Notification {
 
   @Prop()
   order_id: string;
+
+  @Prop()
+  ticket_id: string;
 
   @Prop()
   status: string;

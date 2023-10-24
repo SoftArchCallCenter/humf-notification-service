@@ -1,44 +1,39 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Model, Connection } from 'mongoose';
-import { Notification } from './entities/notification.entity';
+import { NotificationRepository } from './notification.repository';
 
 @Injectable()
 export class NotificationService {
-  protected readonly logger = new Logger(NotificationService.name);
-
   constructor(
-    @InjectModel(Notification.name) notiModel: Model<Notification>,
-    @InjectConnection() connection: Connection,
+    private readonly notificationRepository: NotificationRepository,
   ) {}
 
   create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
+    return this.notificationRepository.create(createNotificationDto);
   }
 
   findAll() {
-    return `This action returns all notification`;
+    return this.notificationRepository.find({});
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} notification`;
+  findByID(id: string) {
+    return this.notificationRepository.findOne({_id: id})
   }
 
   findByUser(id: string) {
-    return `This action returns a #${id} notification`;
+    return this.notificationRepository.find({user_id: id})
   }
 
   findByOrder(id: string) {
-    return `This action returns a #${id} notification`;
+    return this.notificationRepository.find({order_id: id})
   }
 
   remove(req: any) {
     return `This action removes a #${req} notification`;
   }
 
-  getStatus() {
-    return `This action returns status of notification`;
+  getStatus(order_id) {
+    return this.notificationRepository.getStatus(order_id);
   }
 
 }
