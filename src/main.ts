@@ -12,6 +12,6 @@ async function bootstrap() {
   app.connectMicroservice(rmqService.getOptions('NOTIFICATION'));
 
   await app.startAllMicroservices();
-  await app.listen(configService.get('PORT'));
+  await app.listen(configService.get('NOTIFICATION_SERVICE_PORT'));
 }
 bootstrap();

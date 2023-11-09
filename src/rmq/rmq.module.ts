@@ -22,8 +22,8 @@ export class RmqModule {
             useFactory: (configService: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
-                urls: [configService.get<string>('RABBIT_MQ_URI')],
-                queue: configService.get<string>(`RABBIT_MQ_${name}_QUEUE`),
+                urls: [configService.get<string>('NOTIFICATION_SERVICE_RABBIT_MQ_URI')],
+                queue: configService.get<string>(`NOTIFICATION_SERVICE_RABBIT_MQ_${name}_QUEUE`),
               },
             }),
             inject: [ConfigService],

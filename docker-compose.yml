@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  notification-sevice:
+    build: ./
+    image: noti-service:1.0
+    container_name: noti-service
+    depends_on:
+      - rabbitmq
+      - mongodb-notification
+    env_file:
+      - .env
+    ports:
+      - ${NOTIFICATION_SERVICE_PORT}:${NOTIFICATION_SERVICE_PORT}
+    command: npm run start:dev
+    networks:
+      - humf-service-network
+
+  rabbitmq:
+    image: rabbitmq:3.8.3-management
+    container_name: rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+    expose:
+      - 5672
+    networks:
+      - humf-service-network
+
+  mongodb-notification:
+    image: mongo:7.0.2-jammy
+    container_name: mongodb-notification-service
+    env_file:
+      - .env
+    expose:
+      - 27017
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - humf-service-network
+
+volumes:
+  rabbitmq:
+    name: rabbitmq
+    external: true
+  dbdata:
+    name: dbdata-notification
+    external: true
+
+networks:
+  humf-service-network:
+    name: humf-service-network
+    driver: bridge
+    external: true
+
