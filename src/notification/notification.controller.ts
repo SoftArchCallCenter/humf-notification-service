@@ -1,4 +1,4 @@
-import { Body, Delete, Get, Param, Req } from '@nestjs/common';
+import { Body, Delete, Get, Param, Req, Post } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload, EventPattern } from '@nestjs/microservices';
 import { NotificationService } from './notification.service';
@@ -19,7 +19,7 @@ export class NotificationController {
   //   return this.notificationService.findByID(id);
   // }
 
-  @Get('user')
+  @Post('user')
   getNotiByUser(@Body() getNotiByUserDto: GetByUserNotificationDto) {
     return this.notificationService.getNotiByUser(getNotiByUserDto);
   }
