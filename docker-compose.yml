@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   notification-sevice:
-    image: bbbbz/humf-notification-service:1.0.1
+    # image: bbbbz/humf-notification-service:1.0.1
+    build: ./
     container_name: noti-service
     depends_on:
       - rabbitmq
@@ -44,14 +45,15 @@ services:
 volumes:
   rabbitmq:
     name: rabbitmq
-    external: true
+    external: false
   dbdata:
     name: dbdata-notification
-    external: true
+    external: false
 
 networks:
   humf-service-network:
     name: humf-service-network
-    driver: bridge
-    external: false
+    external: true
+    # driver: bridge
+    # external: false
 
