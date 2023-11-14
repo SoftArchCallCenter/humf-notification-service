@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
+import { GetByUserNotificationDto } from './dto/get-by-user-notification.dto';
 import { NotificationRepository } from './notification.repository';
 
 @Injectable()
@@ -34,6 +35,10 @@ export class NotificationService {
 
   getStatus(order_id) {
     return this.notificationRepository.getStatus(order_id);
+  }
+
+  getNotiByUser(getNotiByUserDto: GetByUserNotificationDto) {
+    return this.notificationRepository.getNotiByUser(getNotiByUserDto);
   }
 
 }

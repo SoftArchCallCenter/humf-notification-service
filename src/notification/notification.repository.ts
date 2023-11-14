@@ -3,6 +3,7 @@ import { AbstractRepository } from '../databases/abstract.repository';
 import { InjectModel, InjectConnection } from '@nestjs/mongoose';
 import { Model, Connection } from 'mongoose';
 import { Notification } from './entities/notification.entity';
+import { GetByUserNotificationDto } from './dto/get-by-user-notification.dto';
 
 @Injectable()
 export class NotificationRepository extends AbstractRepository<Notification> {
@@ -23,5 +24,18 @@ export class NotificationRepository extends AbstractRepository<Notification> {
         }
 
         return result[0].status;
+    }
+
+    async getNotiByUser(getNotiByUserDto: GetByUserNotificationDto): Promise<Notification[]> {
+        const { user_id, datetime } = getNotiByUserDto; // Fix the destructuring here
+        const datetimeObj = new Date(datetime); // Convert datetime string to Date object
+    
+        // Using sort and limit in MongoDB, no need to use lean()
+        const result = await this.notiModel
+          .find({ user_id: user_id, datetime: { $gte: datetimeObj } })
+          .sort({ datetime: -1 })
+          .exec(); // Execute the query
+    
+        return result;
     }
 }

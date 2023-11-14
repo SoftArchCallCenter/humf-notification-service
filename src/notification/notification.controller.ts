@@ -1,8 +1,9 @@
-import { Delete, Get, Param, Req } from '@nestjs/common';
+import { Body, Delete, Get, Param, Req } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload, EventPattern } from '@nestjs/microservices';
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
+import { GetByUserNotificationDto } from './dto/get-by-user-notification.dto';
 
 @Controller('notification')
 export class NotificationController {
@@ -18,13 +19,13 @@ export class NotificationController {
   //   return this.notificationService.findByID(id);
   // }
 
-  // @Get('user/:id')
-  // findByUser(@Param('id') id: string) {
-  //   return this.notificationService.findByUser(id);
-  // }
+  @Get('user')
+  getNotiByUser(@Body() getNotiByUserDto: GetByUserNotificationDto) {
+    return this.notificationService.getNotiByUser(getNotiByUserDto);
+  }
 
   // @Get('order/:id')
-  // findByOrder(@Param('id') id: string) {
+  // findByOrder(@Param('id') id: string) {s
   //   return this.notificationService.findByOrder(id);
   // }
 
