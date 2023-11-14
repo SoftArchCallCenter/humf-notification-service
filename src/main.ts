@@ -11,7 +11,10 @@ async function bootstrap() {
   const rmqService = app.get<RmqService>(RmqService);
   app.connectMicroservice(rmqService.getOptions('NOTIFICATION'));
 
+  const port = configService.get('NOTIFICATION_SERVICE_PORT') || 5000;
+  const host = configService.get('NOTIFICATION_SERVICE_HOST') || "127.0.0.1";
+
   await app.startAllMicroservices();
-  await app.listen(configService.get('NOTIFICATION_SERVICE_PORT'));
+  await app.listen(port, host);
 }
 bootstrap();

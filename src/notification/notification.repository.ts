@@ -35,6 +35,10 @@ export class NotificationRepository extends AbstractRepository<Notification> {
           .find({ user_id: user_id, datetime: { $gte: datetimeObj } })
           .sort({ datetime: -1 })
           .exec(); // Execute the query
+
+        if (result.length === 0) {
+            return [];
+        }
     
         return result;
     }
